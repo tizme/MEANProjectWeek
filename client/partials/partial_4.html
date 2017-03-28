@@ -1,0 +1,24 @@
+<div ng-controller="Controller4 User Registration">
+  <form name="registerForm">
+    <h2>Please Register Here...</h2>
+    <p>Name:</p>
+    <input type="text" ng-model="newUser.name" placeholder="Enter Name Here." required minlength="2">
+    <p>Email:</p>
+    <input type="text" ng-model="newUser.email" placeholder="Enter Email Here." required minlength="8">
+    <p>Password:</p>
+    <input type="password" ng-model="newUser.password" placeholder="Enter Password Here." required minlength="8">
+    <button ng-disabled="registerForm.$invalid" ng-click="registerUser(newUser)">Register</button>
+  </form>
+  <div ng-messages="registerForm.newUser.name.$error">
+    <p ng-message="required">User name is required.</p>
+    <p ng-message="minlength">User name must be at least 2 characters.</p>
+  </div>
+  <div ng-messages="registerForm.newUser.email.$error">
+    <p ng-message="required">User email is required.</p>
+    <p ng-message="minlength">User email must be at least 8 characters.</p>
+  </div>
+  <div ng-messages="registerForm.newUser.password.$error">
+    <p ng-message="required">User password is required.</p>
+    <p ng-message="minlength">User name must be at least 8 characters.</p>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app=''>
+  <head>
+    <meta charset="utf-8">
+    <title>MEAN Project Week</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="angular/angular.js" charset="utf-8"></script>
+    <script src="angular-route/angular-route.js" charset="utf-8"></script>
+    <script src="angular-messages/angular-messages.js"></script>
+    <script src="my_angular/config.js" charset="utf-8"></script>
+    <script src="my_angular/boardFactory.js" charset="utf-8"></script>
+    <script src="my_angular/loginController.js" charset="utf-8"></script>
+    <script src="my_angular/boardController.js" charset="utf-8"></script>
+    <script src="my_angular/Controller2.js" charset="utf-8"></script>
+    <script src="my_angular/Controller3.js" charset="utf-8"></script>
+    <script src="my_angular/Controller5.js" charset="utf-8"></script>
+  </head>
+  <body style="font-family: sans-serif;">
+    <p style="font-size:30px;font-weight:bold;"><span style="font-size:40px;">MEAN</span> Project Week</p>
+    <div ng-controller="LoginController">
+      <form name="loginForm">
+        User Email:<input type="text" ng-model="user.email" required minlength="8" placeholder="Enter email Here.">
+        Password:<input type="text" ng-model="user.password" required minlength="8" placeholder="Enter email Here.">
+        <button ng-disabled="loginForm.$invalid" ng-click="loginUser(user)">Login</button>
+      </form>
+      <div ng-messages="loginForm.user.email.$error">
+        <p ng-message="required">User name is required.</p>
+        <p ng-message="minlength">User name must be at least 8 characters.</p>
+      </div>
+      <div ng-messages="loginForm.user.password.$error">
+        <p ng-message="required">User password is required.</p>
+        <p ng-message="minlength">User password must be at least 8 characters.</p>
+      </div>
+    </div>
+    <div ng-view>
+    <!-- Partial html views here. -->
+    </div>
+  </body>
+</html>

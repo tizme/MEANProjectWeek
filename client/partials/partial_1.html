@@ -1,0 +1,22 @@
+<div ng-controller='Controller1 - HomePage'>
+  <h2>Available Areas of Discussion</h2>
+  <input type="text" ng-model="search.name"  placeholder="Search Topics" style="width: 265px; display: block;vertical-align:top;">
+  <div id="categoriesDisplay | filter: createdAt" style="display: inline-block; vertical-align:top; width:800px; border: 1px solid black;">
+    <div ng-repeat="category in categories | filter:search:strict" style="display: inline-block; margin-left: 5px;">
+      <a href="#!/topic/{{category._id}}"><p>{{category.name}}</p></a>
+    </div>
+  <h2>Recent Topics</h2>
+  <input type="text" ng-model="search.name"  placeholder="Search Topics" style="width: 265px; display: block;vertical-align:top;">
+  <div id="topicsDisplay | filter: createdAt" style="display: inline-block; vertical-align:top; width:800px; border: 1px solid black;">
+    <div ng-repeat="topic in topics | filter:search:strict" style="display: inline-block; margin-left: 5px;">
+      <img src={{topic.url}} alt={{topic.name}} style="width: 80px; height: 100px; margin: 5px 0px;background-color: grey;">
+      <p>{{topic.name}}</p>
+    </div>
+    <a href="#!/topics">show all topics</a>
+  </div>
+  <h2>Recent Messages</h2>
+  <div id="ordersDisplay | filter: createdAt" style="display: inline-block; vertical-align:top; width:800px; border: 1px solid black;">
+    <p ng-repeat="message in recentMessages">{{message._user.name}} wrote: {{message.message}}</p>
+    <a href="#!/topics">navigate to topics gallery</a>
+  </div>
+</div>
