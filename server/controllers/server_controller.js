@@ -81,11 +81,19 @@ module.exports = {
 					}
 					else{
 						user._topics.push(req.params.topic_id);
-						user._messages.push(message.message_id);
+
 						user.save(function(err,data){
-					res.sendStatus(200);
-				}
-			})
+							if(err){
+								res.status(400).send("Problem saving user topic.");
+							}
+							else{
+								res.sendStatus(200);
+							}
+						})
+					}
+				})
+			}
+		})
 	},
 	createMessage: function(req, res){
 		var message = new Message(req.body);
@@ -105,7 +113,7 @@ module.exports = {
 						user._messages.push(message.message_id);
 						user.save(function(err,data){
 							if(err){
-								res.status(400).send("Problem saving user.");
+								res.status(400).send("Problem saving user message.");
 							}
 							else{
 								Topic.findOne({_id: req.params.topic_id}, function(err,topic){
@@ -114,12 +122,14 @@ module.exports = {
 									}
 									else{
 										topic._messages.push(message.message_id);
+
+										topic._user = req.session.user._id;
 										topic.save(function(err,data){
 											if(err){
-												res.status(400).send("Problem saving topic.");
+												res.status(400).send("Problem saving topic message.");
 											}
 											else{
-												res.sendStatus(200)
+												res.sendStatus(200);
 											}
 										})
 									}
@@ -128,14 +138,12 @@ module.exports = {
 						})
 					}
 				})
-				res.sendStatus(200);
 			}
 		})
 	},
 	createComment: function(req, res){
 		var comment = new Comment(req.body);
 		comment._message = req.params.message_id;
-		comment._topic = req.params.topic_id;
 		comment._user = req.session.user._id;
 		comment.save(function(err, data){
 			if(err){
@@ -155,13 +163,13 @@ module.exports = {
 								res.status(400).send("Problem saving user.");
 							}
 							else{
-								Topic.findOne({_id: req.params.topic_id}, function(err,topic){
+								User.findOne({_id: req.session.user._id}, function(err,user){
 									if(err){
-										res.status(400).send("Problem finding topic.");
+										res.status(400).send("Problem finding user.");
 									}
 									else{
-										topic._messages.push(message.message_id);
-										topic.save(function(err,data){
+										user._comments.push(comment.comment_id);
+										user.save(function(err,data){
 											if(err){
 												res.status(400).send("Problem saving topic.");
 											}
@@ -175,82 +183,113 @@ module.exports = {
 						})
 					}
 				})
-				res.sendStatus(200);
 			}
 		})
 	},
 	getUserTopics: function(req, res){
-		var topics = new Topics(req.body);
-		comment._topic = req.params.message_id;
-		comment._topic = req.params.topic_id;
-		comment._topic = req.session.user._id;
-		comment._save(function(err, data){
-			if(err){
-				res.status(400).send("Problem saving comment.");
-			}
-			else{
-				Topic.findOne({_id: req.params.message_id}, function(err,message){
-					if(err){
-						res.status(400).send("Problem finding message.");
-					}
-					else{
-						Topic.user = req.session.user._id;
-						Topic.topic = req.params.topic_id;
-					Topic.comments.push(req.params.message_id);
-						Topic.save(function(err,data){
-							if(err){
-								res.status(400).send("Problem saving user.");
-							}
-							else{
-								Topic.findOne({_id: req.params.topic_id}, function(err,topic){
-									if(err){
-										res.status(400).send("Problem finding topic.");
-									}
-									else{
-										topic._messages.push(message.message_id);
-										topic.save(function(err,data){
-											if(err){
-												res.status(400).send("Problem saving topic.");
-											}
-											else{
-												res.sendStatus(200);
+// <<<<<<< Ignacio2
+// 		var topics = new Topics(req.body);
+// 		comment._topic = req.params.message_id;
+// 		comment._topic = req.params.topic_id;
+// 		comment._topic = req.session.user._id;
+// 		comment._save(function(err, data){
+// 			if(err){
+// 				res.status(400).send("Problem saving comment.");
+// 			}
+// 			else{
+// 				Topic.findOne({_id: req.params.message_id}, function(err,message){
+// 					if(err){
+// 						res.status(400).send("Problem finding message.");
+// 					}
+// 					else{
+// 						Topic.user = req.session.user._id;
+// 						Topic.topic = req.params.topic_id;
+// 					Topic.comments.push(req.params.message_id);
+// 						Topic.save(function(err,data){
+// 							if(err){
+// 								res.status(400).send("Problem saving user.");
+// 							}
+// 							else{
+// 								Topic.findOne({_id: req.params.topic_id}, function(err,topic){
+// 									if(err){
+// 										res.status(400).send("Problem finding topic.");
+// 									}
+// 									else{
+// 										topic._messages.push(message.message_id);
+// 										topic.save(function(err,data){
+// 											if(err){
+// 												res.status(400).send("Problem saving topic.");
+// 											}
+// 											else{
+// 												res.sendStatus(200);
 
-											},
+// 											},
+// 	getUserMessages: function(req, res){
+// 		var messages = new Message(req.body);
+// 		comment._messages = req.params.message_id;
+// 		comment._messages = req.params.topic_id;
+// 		comment._messages = req.session.user._id;
+// 		comment._save(function(err, data){
+// 			if(err){
+// 				res.status(400).send("Problem saving comment.");
+// 			}
+// 			else{
+// 				Message.findOne({_id: req.params.message_id}, function(err,message){
+// 					if(err){
+// 						res.status(400).send("Problem finding message.");
+// 					}
+// 					else{
+// 						Message.user = req.session.user._id;
+// 						Message.topic = req.params.topic_id;
+// 					Message.comments.push(req.params.message_id);
+// 						Message.save(function(err,data){
+// 							if(err){
+// 								res.status(400).send("Problem saving user.");
+// 							}
+// 							else{
+// 								Message.findOne({_id: req.params.topic_id}, function(err,topic){
+// 									if(err){
+// 										res.status(400).send("Problem finding topic.");
+// 									}
+// 									else{
+// 										Message_messages.push(message.message_id);
+// 										Mesage.save(function(err,data){
+// 											if(err){
+// 												res.status(400).send("Problem saving topic.");
+// 											}
+// 											else{
+// 												res.sendStatus(200);
+// 											},
+// 											getUserComments:
+// 										}
+
+  		User.findOne({_id: req.session.user._id}).populate('_topics').exec(function(err, data){
+    		if(err){
+      			res.status(400).send("Problem getting user topics.")
+    		}
+    		else{
+      			res.json(data);
+    		}
+  		})
+	},
 	getUserMessages: function(req, res){
-		var messages = new Message(req.body);
-		comment._messages = req.params.message_id;
-		comment._messages = req.params.topic_id;
-		comment._messages = req.session.user._id;
-		comment._save(function(err, data){
+		User.findOne({_id: req.session.user._id}).populate('_messages').exec(function(err, data){
 			if(err){
-				res.status(400).send("Problem saving comment.");
+				res.status(400).send("Problem getting user messages.")
 			}
 			else{
-				Message.findOne({_id: req.params.message_id}, function(err,message){
-					if(err){
-						res.status(400).send("Problem finding message.");
-					}
-					else{
-						Message.user = req.session.user._id;
-						Message.topic = req.params.topic_id;
-					Message.comments.push(req.params.message_id);
-						Message.save(function(err,data){
-							if(err){
-								res.status(400).send("Problem saving user.");
-							}
-							else{
-								Message.findOne({_id: req.params.topic_id}, function(err,topic){
-									if(err){
-										res.status(400).send("Problem finding topic.");
-									}
-									else{
-										Message_messages.push(message.message_id);
-										Mesage.save(function(err,data){
-											if(err){
-												res.status(400).send("Problem saving topic.");
-											}
-											else{
-												res.sendStatus(200);
-											},
-											getUserComments:
-										}
+					res.json(data);
+			}
+		})
+	},
+	getUserComments: function(req, res){
+		User.findOne({_id: req.session.user._id}).populate('_comments').exec(function(err, data){
+			if(err){
+				res.status(400).send("Problem getting user comments.")
+			}
+			else{
+				res.json(data);
+			}
+		})
+	}
+}
