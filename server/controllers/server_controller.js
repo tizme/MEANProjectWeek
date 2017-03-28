@@ -81,11 +81,18 @@ module.exports = {
 					}
 					else{
 						user._topics.push(req.params.topic_id);
-						user._messages.push(message.message_id);
 						user.save(function(err,data){
-					res.sendStatus(200);
-				}
-			})
+							if(err){
+								res.status(400).send("Problem saving user topic.");
+							}
+							else{
+								res.sendStatus(200);
+							}
+						})
+					}
+				})
+			}
+		})
 	},
 	createMessage: function(req, res){
 		var message = new Message(req.body);
@@ -105,7 +112,7 @@ module.exports = {
 						user._messages.push(message.message_id);
 						user.save(function(err,data){
 							if(err){
-								res.status(400).send("Problem saving user.");
+								res.status(400).send("Problem saving user message.");
 							}
 							else{
 								Topic.findOne({_id: req.params.topic_id}, function(err,topic){
@@ -114,12 +121,13 @@ module.exports = {
 									}
 									else{
 										topic._messages.push(message.message_id);
+										topic._user = req.session.user._id;
 										topic.save(function(err,data){
 											if(err){
-												res.status(400).send("Problem saving topic.");
+												res.status(400).send("Problem saving topic message.");
 											}
 											else{
-												res.sendStatus(200)
+												res.sendStatus(200);
 											}
 										})
 									}
@@ -128,7 +136,6 @@ module.exports = {
 						})
 					}
 				})
-				res.sendStatus(200);
 			}
 		})
 	},
@@ -175,7 +182,6 @@ module.exports = {
 						})
 					}
 				})
-				res.sendStatus(200);
 			}
 		})
 	},
