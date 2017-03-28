@@ -1,30 +1,30 @@
-app.controller('Controller2', ['$scope', '$location', 'clientSideFactory',
-  function($scope, $location,  clientSideFactory){
+app.controller('Controller2', ['$scope', '$location', 'BoardFactory',
+  function($scope, $location,  BoardFactory){
 
-    function sessionUser(){
-      clientSideFactory.sessionUser(function(data){
+    function currentUser(){
+      BoardFactory.currentUser(function(data){
         $scope.user = data;
       });
     }
 
-    sessionUser();
+    currentUser();
 
   	$scope.getUserTopics = function(user_id){
-  		clientSideFactory.getUserTopics(user_id);
+  		BoardFactory.getUserTopics(user_id);
       $scope.topics = data
   	}
 
     getUserTopics();
 
     $scope.getUserMessages = function(user_id){
-  		clientSideFactory.getUserMesssages(user_id);
+  		BoardFactory.getUserMesssages(user_id);
       $scope.messages = data
   	}
 
     getUserMessages();
 
     $scope.getUserComments = function(user_id){
-      clientSideFactory.getUserComments(user_id);
+      BoardFactory.getUserComments(user_id);
       $scope.messages = data
     }
 

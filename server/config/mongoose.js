@@ -6,6 +6,7 @@ var fs = require('fs');
 mongoose.connect('mongodb://localhost/mini-store');
 
 var models_path = path.join(__dirname, '../models/');
+mongoose.Promise = global.Promise;
 
 fs.readdirSync(models_path).forEach(function(file){
 	if (file.indexOf(".js") >= 0){
