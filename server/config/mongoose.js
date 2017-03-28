@@ -4,7 +4,7 @@ var fs = require('fs');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/DATABASE_NAME');//name db file
+mongoose.connect('mongodb://localhost/MEANProjectWeek');//name db file
 
 var models_path = path.join(__dirname, '../models/');
 mongoose.Promise = global.Promise;
