@@ -142,7 +142,6 @@ module.exports = {
 	createComment: function(req, res){
 		var comment = new Comment(req.body);
 		comment._message = req.params.message_id;
-		comment._topic = req.params.topic_id;
 		comment._user = req.session.user._id;
 		comment.save(function(err, data){
 			if(err){
@@ -162,13 +161,13 @@ module.exports = {
 								res.status(400).send("Problem saving user.");
 							}
 							else{
-								Topic.findOne({_id: req.params.topic_id}, function(err,topic){
+								User.findOne({_id: req.session.user._id}, function(err,user){
 									if(err){
-										res.status(400).send("Problem finding topic.");
+										res.status(400).send("Problem finding user.");
 									}
 									else{
-										topic._messages.push(message.message_id);
-										topic.save(function(err,data){
+										user._comments.push(comment.comment_id);
+										user.save(function(err,data){
 											if(err){
 												res.status(400).send("Problem saving topic.");
 											}
@@ -185,10 +184,34 @@ module.exports = {
 			}
 		})
 	},
-	getUserTopics:
+	getUserTopics: function(req, res){
+  		User.findOne({_id: req.session.user._id}).populate('_topics').exec(function(err, data){
+    		if(err){
+      			res.status(400).send("Problem getting user topics.")
+    		}
+    		else{
+      			res.json(data);
+    		}
+  		})
 	},
-	getUserMessages:
+	getUserMessages: function(req, res){
+		User.findOne({_id: req.session.user._id}).populate('_messages').exec(function(err, data){
+			if(err){
+				res.status(400).send("Problem getting user messages.")
+			}
+			else{
+					res.json(data);
+			}
+		})
 	},
-	getUserComments:
+	getUserComments: function(req, res){
+		User.findOne({_id: req.session.user._id}).populate('_comments').exec(function(err, data){
+			if(err){
+				res.status(400).send("Problem getting user comments.")
+			}
+			else{
+				res.json(data);
+			}
+		})
 	}
 }
