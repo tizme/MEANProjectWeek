@@ -3,7 +3,7 @@
   <h1>{{topic.name}}</h1>
   <div>
     <form>
-      Respond to this Topic |<input type="text" name="" value="" ng-model="newMessage.message" placeholder="Enter response here...">
+      Respond to this Topic |<textarea name="name" rows="6" cols="80" ng-model="newMessage.message" placeholder="Enter response here..."></textarea>
       <button type="submit" name="Submit" ng-click="submitMessage">Submit Message</button>
     </form>
   </div>
@@ -14,14 +14,20 @@
       <p style="color:blue">{{message.createdAt}}</p>
       <div>
         <form>
-          Want to comment? |<input type="text" name="" value="" ng-model="newComment.comment" placeholder="Enter comment here...">
+          Want to comment? |<textarea name="name" rows="4" cols="40" ng-model="newComment.comment" placeholder="Enter comment here..."></textarea>
           <button type="submit" name="Submit" ng-click="submitComment">Submit Comment</button>
         </form>
       </div>
-      <div id="commentsDisplay" style="overflow-y: scroll">
-        <div ng-repeat="comment in message.comments | orderBy: '-createdAt'">
-          <p style="color:red">{{comment._user.name}} commented: {{comment.comment}}</p>
-          <p style="color:red">Posted at: {{comment.createdAt}}</p>
+      <!-- <a href="#" ng-click="commentsDisplay = !commentsDisplay">Comments</a> -->
+      <button id='commentsButton' ng-click="seeComments = !seeComments">See Comments</button>
+      See Comments|<input type="checkbox" ng-model="seeComments">
+      <div ng-show="seeComments">
+        <div id="commentsDisplay" style="overflow-y: scroll">
+          <h1>this is a test</h1>
+          <div ng-repeat="comment in message.comments | orderBy: '-createdAt'">
+            <p style="color:red">{{comment._user.name}} commented: {{comment.comment}}</p>
+            <p style="color:red">Posted at: {{comment.createdAt}}</p>
+          </div>
         </div>
       </div>
     </div>

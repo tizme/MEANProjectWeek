@@ -1,8 +1,8 @@
-app.controller('Controller5', ['$scope', '$location', '$routeParams', 'clientSideFactory',
-  function($scope, $location, $routeParams, clientSideFactory){
+app.controller('Controller5', ['$scope', '$location', '$routeParams', 'BoardFactory',
+  function($scope, $location, $routeParams, BoardFactory){
 
-    function sessionUser(){
-      clientSideFactory.sessionUser(function(data){
+    function curretnUser(){
+      BoardFactory.currentUser(function(data){
         $scope.user = data;
       });
     }
@@ -10,22 +10,22 @@ app.controller('Controller5', ['$scope', '$location', '$routeParams', 'clientSid
     sessionUser();
 
   	$scope.getUserTopics = function(user_id){
-  		clientSideFactory.getUserTopics(user_id);
+  		BoardFactory.getUserTopics(user_id);
       $scope.topics = data
   	}
 
     getUserTopics();
 
     $scope.getUserMessages = function(user_id){
-  		clientSideFactory.getUserMesssages(user_id);
+  		BoardFactory.getUserMesssages(user_id);
       $scope.messages = data
   	}
 
     getUserMessages();
 
     $scope.getUserComments = function(user_id){
-      clientSideFactory.getUserComments(user_id);
-      $scope.messages = data
+      BoardFactory.getUserComments(user_id);
+      $scope.comments = data
     }
 
     getUserComments();
