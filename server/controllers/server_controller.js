@@ -67,6 +67,16 @@ module.exports = {
 			}
 		})
 	},
+	getUserMessages: function(req, res){
+		User.findOne({_id: req.params.user_id}).populate('_messages').exec(function(err, data){
+			if(err){
+				res.status(400).send("Problem getting user posts.")
+			}
+			else{
+				res.json(data);
+			}
+		})
+	},
 	createTopic: function(req, res){
 		var topic = new Topic(req.body);
 		topic._user = req.session.user._id;
@@ -91,6 +101,16 @@ module.exports = {
 						})
 					}
 				})
+			}
+		})
+	},
+	getUserTopics: function(req, res){
+		User.findOne({_id: req.params.user_id}).populate('_topics').exec(function(err, data){
+			if(err){
+				res.status(400).send("Problem getting user topics.")
+			}
+			else{
+				res.json(data);
 			}
 		})
 	},
