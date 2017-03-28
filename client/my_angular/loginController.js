@@ -1,9 +1,9 @@
-app.controller('LoginController', ['$scope', '$location', 'QAFactory', function($scope, $location, QAFactory){
+app.controller('LoginController', ['$scope', '$location', 'BoardFactory', function($scope, $location, BoardFactory){
 $scope.register =function(user){
   console.log('login controller line3', user);
-  QAFactory.register(user);
+  BoardFactory.register(user);
 }
 $scope.login=function(user){
-  QAFactory.login(user);
+  BoardFactory.login(user);
 }
 }])
