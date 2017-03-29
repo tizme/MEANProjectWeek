@@ -1,4 +1,4 @@
-<div ng-controller='Controller2 - Topics Page'>
+<div>
   <h1>Available Topics</h2>
   <input type="text" ng-model="search.category"  placeholder="Search Topics" style="width: 265px; display: block;vertical-align:top;">
   <div id="topicsDisplay | filter: createdAt" style="display: inline-block; vertical-align:top; width:800px; border: 1px solid black;">
@@ -26,6 +26,6 @@
       <option value="Music">Music</option>
       <option value="Video Games">Video Games</option>
     </select>
-    <button type="submit" name="Submit" ng-click="submitTopic">Submit Comment</button>
+    <button type="submit" name="Submit" ng-click="submitTopic(newTopic)">Submit Topic</button>
   </form>
 </div>

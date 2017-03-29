@@ -1,7 +1,9 @@
+///$http commands will need to be adjusted based on serverside routes
+
 app.factory('BoardFactory', ['$location', '$http', function($location, $http){
   var factory = {};
   factory.register = function(user){
-    console.log("got to boardFactory line 4");
+    console.log("got to boardFactory line 6");
     $http({
       url: '/register',
       method: 'POST',
@@ -24,30 +26,31 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
     }).then(function(res){
       console.log("login sucess boardfactory line 25!");
       console.log(res);
-      $location.url('/')
+      $location.url('/topics');
     }, function(res){
       console.log('boardfactory line 29', res);
     })
 
   };
 // not sure how to use current user if we are allowing access to site without registration.
-  factory.currentUser = function(callback){
-    $http({
-      url: '/current',
-      method: 'GET'
-    }).then(function(res){
-      callback(res.data);
-    },function(res){
-      $location.url('/')
-      console.log(res);
-    })
-  },
+  // factory.currentUser = function(callback){
+  //   $http({
+  //     url: '/current',
+  //     method: 'GET'
+  //   }).then(function(res){
+  //     callback(res.data);
+  //   },function(res){
+  //     $location.url('/')
+  //     console.log(res);
+  //   })
+  // },
 
-  factory.addTopic = function(topic, callback){
+  factory.submitTopic = function(topic, callback){
+    console.log('factory reached');
     $http({
       url: '/topic',
       method: 'POST',
-      data: post
+      data: topic
     }).then(function(res){
       console.log(res);
       callback()
@@ -98,6 +101,43 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
       data: comment
     }).then(function(res){
       callback();
+      console.log(res);
+    },function(res){
+      console.log(res);
+    })
+  },
+
+  factory.getUserTopics = function (user_id, callback){
+    console.log('getting to server?', user_id);
+  $http({
+    url: '/user_topics/' + user_id,
+    method: 'GET'
+  }).then(function(res){
+    callback(res.data);
+    console.log(res);
+  },function(res){
+    console.log(res);
+  })
+},
+
+    factory.getUserMessages = function (user_id, callback){
+    $http({
+      url: '/user_messages/' + user_id,
+      method: 'GET'
+    }).then(function(res){
+      callback(res.data);
+      console.log(res);
+    },function(res){
+      console.log(res);
+    })
+  },
+
+    factory.getUserComments = function (user_id, callback){
+    $http({
+      url: '/user_comments/' + user_id,
+      method: 'GET'
+    }).then(function(res){
+      callback(res.data);
       console.log(res);
     },function(res){
       console.log(res);

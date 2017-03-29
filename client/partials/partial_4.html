@@ -1,4 +1,4 @@
-<div ng-controller="Controller4 User Registration">
+<div>
   <form name="registerForm">
     <h2>Please Register Here...</h2>
     <p>Name:</p>
@@ -7,7 +7,7 @@
     <input type="text" ng-model="newUser.email" placeholder="Enter Email Here." required minlength="8">
     <p>Password:</p>
     <input type="password" ng-model="newUser.password" placeholder="Enter Password Here." required minlength="8">
-    <button ng-disabled="registerForm.$invalid" ng-click="registerUser(newUser)">Register</button>
+    <button ng-disabled="registerForm.$invalid" ng-click="register(newUser)">Register</button>
   </form>
   <div ng-messages="registerForm.newUser.name.$error">
     <p ng-message="required">User name is required.</p>

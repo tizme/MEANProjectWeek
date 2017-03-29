@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html ng-app=''>
+<html ng-app='app'>
   <head>
     <meta charset="utf-8">
     <title>MEAN Project Week</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> -->
     <script src="angular/angular.js" charset="utf-8"></script>
     <script src="angular-route/angular-route.js" charset="utf-8"></script>
     <script src="angular-messages/angular-messages.js"></script>
@@ -21,7 +21,8 @@
       <form name="loginForm">
         User Email:<input type="text" ng-model="user.email" required minlength="8" placeholder="Enter email Here.">
         Password:<input type="text" ng-model="user.password" required minlength="8" placeholder="Enter email Here.">
-        <button ng-disabled="loginForm.$invalid" ng-click="loginUser(user)">Login</button>
+        <button ng-disabled="loginForm.$invalid" ng-click="login(user)">Login</button>
+        <a href="#!/register">Register</a>
       </form>
       <div ng-messages="loginForm.user.email.$error">
         <p ng-message="required">User name is required.</p>
