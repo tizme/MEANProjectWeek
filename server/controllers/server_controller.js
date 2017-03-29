@@ -8,9 +8,11 @@ var bcrypt = require('bcryptjs');
 
 module.exports = {
 	register: function(req, res){
+		console.log('attempting to register user');
 		var salt = bcrypt.genSaltSync(10);
-		if(req.body.password == req.body.password_confirmation){
+		if(req.body.password){
 			var hash = bcrypt.hashSync(req.body.password, salt);
+			console.log('hashed password', hash);
 			var user = new User({name: req.body.name, email:req.body.email, password: hash});
 			user.save(function(err, data){
 				if(err){
@@ -19,19 +21,24 @@ module.exports = {
 				else{
 					req.session.user = data;
 					res.sendStatus(200);
+					console.log('user registered?');
 				}
 			})
 		}
 	},
 	login: function(req, res){
+		console.log('logging', req.body);
 		User.findOne({email: req.body.email}, function(err, user){
 			if(err){
 				res.status(400).send("Could not login user.");
 			}
 			else{
+				console.log('attempting bcrypt');
+				console.log(user);
 				if(bcrypt.compareSync(req.body.password, user.password)){
 					req.session.user = user;
 					res.sendStatus(200);
+					console.log('user in session', req.session.user);
 				}
 			}
 		})
@@ -40,13 +47,13 @@ module.exports = {
 		req.session.destroy();
 		res.redirect('/');
 	},
-	current: function(req, res){
-		if(req.session.user){
-			res.json(req.session.user);
-		}else{
-			res.status(401).send("No user in session.");
-		}
-	},
+	// current: function(req, res){
+	// 	if(req.session.user){
+	// 		res.json(req.session.user);
+	// 	}else{
+	// 		res.status(401).send("No user in session.");
+	// 	}
+	// },
 	getTopics: function(req, res){
 		Topic.find({}).populate('_messages').populate('_user').exec(function(err, data){
 			if(err){
@@ -68,10 +75,16 @@ module.exports = {
 		})
 	},
 	createTopic: function(req, res){
+		console.log('server reached');
+		console.log('the req', req.body);
 		var topic = new Topic(req.body);
+		console.log('sesion user', req.session.user);
+		console.log(topic);
 		topic._user = req.session.user._id;
+		console.log('the topic', topic);
 		topic.save(function(err, data){
 				if(err){
+					console.log(err);
 					res.status(400).send("Could not create new topic.");
 				}
 				else{
@@ -186,7 +199,7 @@ module.exports = {
 			}
 		})
 	},
-	getUserTopics: function(req, res){
+
 // <<<<<<< Ignacio2
 // 		var topics = new Topics(req.body);
 // 		comment._topic = req.params.message_id;
@@ -262,7 +275,18 @@ module.exports = {
 // 											},
 // 											getUserComments:
 // 										}
-
+	getUserTopicsMessagesComments: function(req, res){
+		User.findOne({_id: req.session.user._id}).populate('_topics').populate('_messages').populate('_comments').exec(function(err, data){
+			if(err){
+					res.status(400).send("Problem getting user topics.")
+			}
+			else{
+					res.json(data);
+			}
+		})
+	},
+		getUserTopics: function(req, res){
+			console.log(req.session.user);
   		User.findOne({_id: req.session.user._id}).populate('_topics').exec(function(err, data){
     		if(err){
       			res.status(400).send("Problem getting user topics.")

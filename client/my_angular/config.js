@@ -3,24 +3,28 @@ var app = angular.module('app', ['ngRoute', 'ngMessages']);
 app.config(function($routeProvider){
   $routeProvider
     .when('/',{
-      templateUrl: 'partials/parial_1.html',
+      templateUrl: 'partials/partial_1.html',
       controller: 'BoardController'
     })
     .when('/register',{
-      templateUrl: 'partials/register.html',
+      templateUrl: 'partials/partial_4.html',
       controller: 'LoginController'
     })
-    .when('/category',{
-      templateUrl: 'partials/category.html',
+    .when('/topics',{
+      templateUrl: 'partials/partial_2.html',
       controller: 'BoardController'
     })
-    .when('/topic',{
-      templateUrl: 'partials/topic.html',
-      controller: 'LoginController'
+    .when('/topic/:id',{
+      templateUrl: 'partials/partial_3.html',
+      controller: 'Controller3'
     })
-    .when('/user',{
-      templateUrl: 'partials/user.html',
-      controller: 'LoginController'
+    .when('/user/:id',{
+      templateUrl: 'partials/partial_5.html',
+      controller: 'Controller5'
+    })
+    .when('/chat',{
+      templateUrl: 'partials/partial_6.html',
+      controller: 'Controller6'
     })
     .otherwise({
       redirectTo: '/'

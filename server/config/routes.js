@@ -4,13 +4,14 @@ module.exports = function(app){
 	app.post('/register', serverController.register);
 	app.post('/login', serverController.login);
 	app.get('/logout', serverController.logout);
-	app.get('/current', serverController.current);
+	// app.get('/current', serverController.current);
 	app.get('/messages', serverController.getMessages);
+	app.get('/user_messages/:id', serverController.getUserMessages);
 	app.post('/message', serverController.createMessage);
-	app.delete('/message_id', serverController.delete);
-	app.get('comment', serverController.comment);
-	app.post('comment', serverController.comment);
-	
+	app.get('/topics', serverController.getTopics);
+	app.get('/user_topics/:id', serverController.getUserTopics);
+	app.post('/topic', serverController.createTopic);
+	app.get('/user_comments/:id', serverController.getUserComments);
+	app.post('/comment', serverController.createComment);
+
 }
-
-
