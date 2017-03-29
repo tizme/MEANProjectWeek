@@ -1,4 +1,4 @@
-<div ng-controller="Controller5 Individual User Page">
+<div>
   <p>User Profile for {{user.name}}</p>
   <p>Joined: {{user.createdAt}}</p>
   <div id="topicDisplay" style="overflow-y: scroll">
@@ -8,7 +8,7 @@
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Topic</th>
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Start Date</th>
       </thead>
-      <tr ng-repeat="topic in topics | orderBy: '-createdAt'">
+      <tr ng-repeat="topic in user.topics | orderBy: '-createdAt'">
         <td><a href="#!/topic/{{topic._id}}">{{topic.topic}}</a></td>
         <td>{{topic.createdAt}}</td>
       </tr>

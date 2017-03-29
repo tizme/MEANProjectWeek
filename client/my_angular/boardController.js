@@ -1,11 +1,11 @@
 app.controller('BoardController', ['$scope', '$location', 'BoardFactory', function($scope, $location, BoardFactory){
 
-  function currentUser(){
-    BoardFactory.currentUser(function(data){
-      $scope.user = data;
-    });
-  }
-  currentUser();
+  // function currentUser(){
+  //   BoardFactory.currentUser(function(data){
+  //     $scope.user = data;
+  //   });
+  // }
+  // currentUser();
 
   function getTopics(){
     BoardFactory.getTopics(function(data){
@@ -13,9 +13,9 @@ app.controller('BoardController', ['$scope', '$location', 'BoardFactory', functi
     })
   }
   getTopics();
-  $scope.addTopic = function(topic){
+  $scope.submitTopic = function(topic){
     console.log(topic);
-    BoardFactory.addTopic(topic, getTopics);
+    BoardFactory.submitTopic(topic, getTopics);
     $scope.newTopic = {};
   }
 
