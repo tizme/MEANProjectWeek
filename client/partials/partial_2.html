@@ -1,14 +1,17 @@
 <div>
   <h1>Available Topics</h2>
+  <a href="#!/topics">Return to Topics Main</a>
   <input type="text" ng-model="search.category"  placeholder="Search Topics" style="width: 265px; display: block;vertical-align:top;">
   <div id="topicsDisplay | filter: createdAt" style="display: inline-block; vertical-align:top; width:800px; border: 1px solid black;">
-    <table>
-      <thead>
+    <table styel="overflow-y=scroll;">
+      <thead style='background-color: black;'>
+        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Category</th>
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Topic</th>
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Topic Author</th>
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Start Date</th>
       </thead>
       <tr ng-repeat="topic in topics | orderBy: '-createdAt'">
+        <td>{{topic.category}}</td>
         <td><a href="#!/topic/{{topic._id}}">{{topic.topic}}</a></td>
         <td><a href="#!/user/{{topic._user._id}}">{{topic._user.name}}</a></td>
         <td>{{topic.createdAt}}</td>

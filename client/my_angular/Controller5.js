@@ -10,28 +10,38 @@ app.controller('Controller5', ['$scope', '$location', '$routeParams', 'BoardFact
     // }
     //
     // currentUser();
+    //
 
-  	$scope.getUserTopics = function(){
-      console.log('userid', user_id);
-  		BoardFactory.getUserTopics(user_id);
-      $scope.topics = data
-  	}
-
-    $scope.getUserTopics();
-
-    $scope.getUserMessages = function(user_id){
-  		BoardFactory.getUserMesssages(user_id);
-      $scope.messages = data
-  	}
-
-    $scope.getUserMessages();
-
-    $scope.getUserComments = function(user_id){
-      BoardFactory.getUserComments(user_id);
-      $scope.comments = data
+    getUser = function(user_id){
+      console.log('attempting to get user data');
+      console.log('route params', $routeParams.id);
+      console.log(user_id);
+      BoardFactory.getUser(user_id);
+      $scope.user = data;
     }
+    getUser($routeParams.id);
 
-    $scope.getUserComments();
+  	// $scope.getUserTopics = function(){
+    //   console.log('userid', user_id);
+  	// 	BoardFactory.getUserTopics(user_id);
+    //   $scope.topics = data
+  	// }
+    //
+    // $scope.getUserTopics();
+    //
+    // $scope.getUserMessages = function(user_id){
+  	// 	BoardFactory.getUserMesssages(user_id);
+    //   $scope.messages = data
+  	// }
+    //
+    // $scope.getUserMessages();
+    //
+    // $scope.getUserComments = function(user_id){
+    //   BoardFactory.getUserComments(user_id);
+    //   $scope.comments = data
+    // }
+    //
+    // $scope.getUserComments();
 
   }
 ])
