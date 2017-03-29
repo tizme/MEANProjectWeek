@@ -107,6 +107,17 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
     })
   },
 
+  factory.getUser = function (user_id, callback){
+    console.log('getting to server?', user_id);
+    $http({
+      url: '/user/' + user_id,
+      method: 'GET'
+    }).then(function(res){
+      callback(res.data);
+      console.log(res);
+    })
+  },
+
   factory.getUserTopics = function (user_id, callback){
     console.log('getting to server?', user_id);
   $http({

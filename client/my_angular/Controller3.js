@@ -1,13 +1,13 @@
 app.controller('Controller3', ['$scope', '$location', '$routeParams', 'BoardFactory',
   function($scope, $location, $routeParams, BoardFactory){
 
-    function currentUser(){
-      BoardFactory.currentUser(function(data){
-        $scope.current = data;
-      });
-    }
-
-    currentUser();
+    // function currentUser(){
+    //   BoardFactory.currentUser(function(data){
+    //     $scope.current = data;
+    //   });
+    // }
+    //
+    // currentUser();
 
   	$scope.getTopic = function(topic_id){
   		BoardFactory.getTopic(topic_id);

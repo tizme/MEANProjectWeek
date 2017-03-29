@@ -54,6 +54,16 @@ module.exports = {
 	// 		res.status(401).send("No user in session.");
 	// 	}
 	// },
+	getUser: function(req, res){
+		User.findOne({_id: req.params.user_id}).populate('_topics').populate('_messages').populate('_comments').exec(function(err, data){
+			if(err){
+				res.status(400).send("Problem getting user information.")
+			}
+			else{
+				res.json(data);
+			}
+		})
+	},
 	getTopics: function(req, res){
 		Topic.find({}).populate('_messages').populate('_user').exec(function(err, data){
 			if(err){
