@@ -27,15 +27,13 @@
       <div ng-show="seeComments">
         <div id="commentsDisplay" style="overflow-y: scroll">
           <h1>this is a test</h1>
-
-          <div ng-repeat="message in messages | orderBy: '-createdAt'">
-            <!-- {{message}} -->
-            <div ng-repeat="comment in message._comments">
+            <!-- {{message._id}} -->
+          <div ng-repeat="comment in message._comments">
 
 
-              <p style="color:red">{{comment._user.name}} commented: {{comment.comment}}</p>
-              <p style="color:red">Posted at: {{comment.createdAt}}</p>
-            </div>
+            <p style="color:red">{{comment._user.name}} commented: {{comment.comment}}</p>
+            <p style="color:red">Posted at: {{comment.createdAt}}</p>
+            Message ID of comment: {{comment._message}}
           </div>
         </div>
       </div>
