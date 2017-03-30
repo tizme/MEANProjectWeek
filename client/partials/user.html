@@ -24,7 +24,7 @@
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Post Date</th>
       </thead>
       <tr ng-repeat="message in user._messages | orderBy: '-createdAt'">
-        <td><a href="#!/topic/{{message.topic._id}}">{{message.message}}</a></td>
+        <td><a href="#!/topic/{{message._topic}}">{{message.message}}</a></td>
         <td>{{message.createdAt}}</td>
       </tr>
     </table>

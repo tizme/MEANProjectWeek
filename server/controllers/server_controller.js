@@ -259,7 +259,7 @@ module.exports = {
 										res.status(400).send("Problem finding user.");
 									}
 									else{
-										user._comments.push(req.body._id);
+										user._comments.push(comment._id);
 										user.save(function(err,data){
 											if(err){
 												res.status(400).send("Problem saving topic.");
