@@ -7,10 +7,10 @@
     </div>
   <h2>Recent Topics</h2>
   <input type="text" ng-model="search.name"  placeholder="Search Topics" style="width: 265px; display: block;vertical-align:top;">
-  <div id="topicsDisplay | filter: createdAt" style="display: inline-block; vertical-align:top; width:800px; border: 1px solid black;">
-    <div ng-repeat="topic in topics | filter:search:strict" style="display: inline-block; margin-left: 5px;">
+  <div id="topicsDisplay | filter: createdAt " style="display: inline-block; vertical-align:top; width:800px; border: 1px solid black;">
+    <div ng-repeat="topic in topics | filter:search:strict |limitTo: 5" style="display: inline-block; margin-left: 5px;">
       <!-- <img src={{topic.url}} alt={{topic.name}} style="width: 80px; height: 100px; margin: 5px 0px;background-color: grey;"> -->
-      <p>{{topic._user.name}} started the topic: {{topic.name}} on {{topic.createdAt}}.</p>
+      <p>{{topic._user.name}} started the topic: {{topic.topic}} on {{topic.createdAt}}.</p>
     </div>
     <a href="#!/topics">show all topics</a>
   </div>

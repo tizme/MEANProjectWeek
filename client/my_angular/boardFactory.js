@@ -16,7 +16,7 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
       console.log('line 14', res);
     })
 
-  };
+  }
 
   factory.login = function(user){
     $http({
@@ -24,14 +24,14 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
       method: 'POST',
       data: user
     }).then(function(res){
-      console.log("login sucess boardfactory line 25!");
+      console.log("login success boardfactory line 25!");
       console.log(res);
       $location.url('/topics');
     }, function(res){
-      console.log('boardfactory line 29', res);
+      console.log('boardfactory line 31', res);
     })
 
-  };
+  }
 // not sure how to use current user if we are allowing access to site without registration.
   // factory.currentUser = function(callback){
   //   $http({
@@ -55,9 +55,9 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
       console.log(res);
       callback()
     },function(res){
-      console.log(res);
+      console.log("this is res");
     })
-  },
+  }
 
     factory.getTopics = function(callback){
       $http({
@@ -68,9 +68,10 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
       },function(res){
         console.log(res);
       })
-    },
+    }
 
   factory.addMessage = function(message, callback){
+    console.log('hitting factory to add message');
     $http({
       url: '/message',
       method: 'POST',
@@ -81,7 +82,7 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
     },function(res){
       console.log(res);
     })
-  },
+  }
 
   factory.getMessages = function(callback){
     $http({
@@ -92,9 +93,10 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
     },function(res){
       console.log(res);
     })
-  },
+  }
 
   factory.addComment = function(comment, message_id, callback ){
+    console.log('factory add comment section reached');
     $http({
       url: '/comment/' + message_id,
       method: 'POST',
@@ -105,18 +107,19 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
     },function(res){
       console.log(res);
     })
-  },
+  }
 
   factory.getUser = function (user_id, callback){
-    console.log('getting to server?', user_id);
+    console.log('getting to factrory?', user_id);
     $http({
       url: '/user/' + user_id,
       method: 'GET'
     }).then(function(res){
+      console.log('check');
       callback(res.data);
       console.log(res);
     })
-  },
+  }
 
   factory.getUserTopics = function (user_id, callback){
     console.log('getting to server?', user_id);
@@ -129,7 +132,7 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
   },function(res){
     console.log(res);
   })
-},
+}
 
     factory.getUserMessages = function (user_id, callback){
     $http({
@@ -141,7 +144,7 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
     },function(res){
       console.log(res);
     })
-  },
+  }
 
     factory.getUserComments = function (user_id, callback){
     $http({
@@ -154,5 +157,34 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
       console.log(res);
     })
   }
+
+  factory.getTopic = function (topic_id, callback){
+    console.log('getting to factrory?', topic_id);
+    $http({
+      url: '/topic/' + topic_id,
+      method: 'GET'
+    }).then(function(res){
+      console.log(res);
+      console.log('check');
+      callback(res.data);
+    },function(res){
+      console.log('hitting here');
+      console.log(res);
+    })
+  }
+    factory.getTopicMessagesComments = function (topic_id, callback){
+      console.log('getting to factrory?', topic_id);
+      $http({
+        url: '/topic/messages/' + topic_id,
+        method: 'GET'
+      }).then(function(res){
+        console.log(res);
+        console.log('check');
+        callback(res.data);
+      },function(res){
+        console.log('hitting here');
+        console.log(res);
+      })
+    }
   return factory;
 }])
