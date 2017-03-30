@@ -21,11 +21,13 @@ app.controller('BoardController', ['$scope', '$location', 'BoardFactory', functi
 
   function getMessages(){
     BoardFactory.getMessages(function(data){
-      $scope.posts = data;
+      $scope.messages = data;
     })
   }
   getMessages();
+
   $scope.addMessage = function(message){
+    console.log('am i working?');
     console.log(message);
     BoardFactory.addMessage(message, getMessages);
     $scope.newMessage = {};

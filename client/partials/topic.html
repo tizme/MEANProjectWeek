@@ -2,34 +2,36 @@
   name: {{user.name}}
   <a href="#!/topics">Return to Topics Main</a>
   <a href="#!/">General Dashboard</a>
-  <a href="/logout"><button type="button" name="button">logout</button></a>
-  <h1>{{topic.name}}</h1>
+  <h1>{{topic.topic}}</h1>
+  <h2>{{topic._id}}</h2>
   <div>
     <form>
       Respond to this Topic |<textarea name="name" rows="6" cols="80" ng-model="newMessage.message" placeholder="Enter response here..."></textarea>
-      <button type="submit" name="Submit" ng-click="submitMessage">Submit Message</button>
+      <button type="submit" name="Submit" ng-click="addMessage(newMessage, topic._id)">Submit Message</button>
     </form>
   </div>
-  <div id="messageDisplay" style="overflow-y: scroll">
-    <div ng-repeat="message in topic.messages | orderBy: '-createdAt'">
+  <div id="messageDisplay">
+    <div ng-repeat="message in messages | orderBy: '-createdAt'">
       <p style="color:blue">{{message._user.name}}:</p>
       <p style="color:blue">{{message.message}}</p>
       <p style="color:blue">{{message.createdAt}}</p>
+      {{message._id}}
       <div>
         <form>
           Want to comment? |<textarea name="name" rows="4" cols="40" ng-model="newComment.comment" placeholder="Enter comment here..."></textarea>
-          <button type="submit" name="Submit" ng-click="submitComment">Submit Comment</button>
+          <button type="submit" name="Submit" ng-click="addComment(newComment, message._id )">Submit Comment</button>
         </form>
       </div>
       <!-- <a href="#" ng-click="commentsDisplay = !commentsDisplay">Comments</a> -->
       <button id='commentsButton' ng-click="seeComments = !seeComments">See Comments</button>
-      See Comments|<input type="checkbox" ng-model="seeComments">
       <div ng-show="seeComments">
-        <div id="commentsDisplay" style="overflow-y: scroll">
+        <div id="commentsDisplay">
           <h1>this is a test</h1>
-          <div ng-repeat="comment in message.comments | orderBy: '-createdAt'">
+            <!-- {{message._id}} -->
+          <div class="commentBox" ng-repeat="comment in message._comments">
             <p style="color:red">{{comment._user.name}} commented: {{comment.comment}}</p>
             <p style="color:red">Posted at: {{comment.createdAt}}</p>
+            Message ID of comment: {{comment._message}}
           </div>
         </div>
       </div>

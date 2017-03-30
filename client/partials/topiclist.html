@@ -1,14 +1,14 @@
 <div>
   <h1>Available Topics</h2>
   <a href="#!/topics">Return to Topics Main</a>
-  <input type="text" ng-model="search.category"  placeholder="Search Topics" style="width: 265px; display: block;vertical-align:top;">
-  <div id="topicsDisplay | filter: createdAt" style="display: inline-block; vertical-align:top; width:800px; border: 1px solid black;">
-    <table styel="overflow-y=scroll;">
-      <thead style='background-color: black;'>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Category</th>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Topic</th>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Topic Author</th>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Start Date</th>
+  <input type="text" ng-model="search.category"  placeholder="Search Topics">
+  <div id="topicsDisplay | filter: createdAt">
+    <table>
+      <thead>
+        <th>Category</th>
+        <th>Topic</th>
+        <th>Topic Author</th>
+        <th>Start Date</th>
       </thead>
       <tr ng-repeat="topic in topics | orderBy: '-createdAt'">
         <td>{{topic.category}}</td>
@@ -23,8 +23,8 @@
     <select ng-model="newTopic.category">
       <option value="News">News</option>
       <option value="Science">Science</option>
-      <option value="Sports">Sports</option>
       <option value="Politics">Politics</option>
+      <option value="Sports">Sports</option>
       <option value="Movies">Movies</option>
       <option value="TV">TV</option>
       <option value="Music">Music</option>

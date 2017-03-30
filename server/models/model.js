@@ -39,4 +39,3 @@ var CommentSchema = new mongoose.Schema({
 mongoose.model('Comment', CommentSchema);
 
 //Schemas
-

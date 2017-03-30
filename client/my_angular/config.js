@@ -3,23 +3,23 @@ var app = angular.module('app', ['ngRoute', 'ngMessages']);
 app.config(function($routeProvider){
   $routeProvider
     .when('/',{
-      templateUrl: 'partials/partial_1.html',
+      templateUrl: 'partials/dashboard.html',
       controller: 'BoardController'
     })
     .when('/register',{
-      templateUrl: 'partials/partial_4.html',
+      templateUrl: 'partials/register.html',
       controller: 'LoginController'
     })
     .when('/topics',{
-      templateUrl: 'partials/partial_2.html',
+      templateUrl: 'partials/topiclist.html',
       controller: 'BoardController'
     })
-    .when('/topic/:id',{
-      templateUrl: 'partials/partial_3.html',
+    .when('/topic/:topic_id',{
+      templateUrl: 'partials/topic.html',
       controller: 'Controller3'
     })
-    .when('/user/:id',{
-      templateUrl: 'partials/partial_5.html',
+    .when('/user/:user_id',{
+      templateUrl: 'partials/user.html',
       controller: 'Controller5'
     })
     .when('/chat',{

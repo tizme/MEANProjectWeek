@@ -1,0 +1,27 @@
+<div>
+  <h2>Available Areas of Discussion</h2>
+  <input type="text" ng-model="search.name"  placeholder="Search Topics">
+  <div id="categoriesDisplay | filter: createdAt">
+    <div ng-repeat="category in categories | filter:search:strict">
+      <a href="#!/topic/{{category._id}}"><p>{{category.name}}</p></a>
+    </div>
+    <div id="topicsDash">
+      <h2>Recent Topics</h2>
+      <input type="text" ng-model="search.name"  placeholder="Search Topics">
+      <div id="topicsDisplay | filter: createdAt ">
+        <div ng-repeat="topic in topics | filter:search:strict |limitTo: 5">
+            <!-- <img src={{topic.url}} alt={{topic.name}} style="width: 80px; height: 100px; margin: 5px 0px;background-color: grey;"> -->
+          <p>{{topic._user.name}} started the topic: {{topic.topic}} on {{topic.createdAt}}.</p>
+        </div>
+        <a href="#!/topics">show all topics</a>
+      </div>
+    </div>
+    <div id='messagesDash'>
+      <h2>Recent Messages</h2>
+      <div id="ordersDisplay | filter: createdAt">
+        <p ng-repeat="message in messages">{{message._user.name}} wrote: {{message.message}} posted on: {{message.createdAt}}</p>
+        <a href="#!/topics">navigate to topics gallery</a>
+      </div>
+    </div>
+  </div>
+</div>
