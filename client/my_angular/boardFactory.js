@@ -33,17 +33,17 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
 
   }
 // not sure how to use current user if we are allowing access to site without registration.
-  // factory.currentUser = function(callback){
-  //   $http({
-  //     url: '/current',
-  //     method: 'GET'
-  //   }).then(function(res){
-  //     callback(res.data);
-  //   },function(res){
-  //     $location.url('/')
-  //     console.log(res);
-  //   })
-  // },
+  factory.currentUser = function(callback){
+    $http({
+      url: '/current',
+      method: 'GET'
+    }).then(function(res){
+      callback(res.data);
+    },function(res){
+      // $location.url('/')
+      console.log(res);
+    })
+  },
 
   factory.submitTopic = function(topic, callback){
     console.log('factory reached');
@@ -95,7 +95,7 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
     })
   }
 
-  factory.addComment = function(comment, message_id, callback ){
+  factory.addComment = function(comment, message_id, callback){
     console.log('factory add comment section reached');
     $http({
       url: '/comment/' + message_id,

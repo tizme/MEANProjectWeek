@@ -1,11 +1,11 @@
 app.controller('BoardController', ['$scope', '$location', 'BoardFactory', function($scope, $location, BoardFactory){
 
-  // function currentUser(){
-  //   BoardFactory.currentUser(function(data){
-  //     $scope.user = data;
-  //   });
-  // }
-  // currentUser();
+  function currentUser(){
+    BoardFactory.currentUser(function(data){
+      $scope.user = data;
+    });
+  }
+  currentUser();
 
   function getTopics(){
     BoardFactory.getTopics(function(data){
@@ -34,6 +34,7 @@ app.controller('BoardController', ['$scope', '$location', 'BoardFactory', functi
   }
   $scope.addComment = function(comment, message_id){
     BoardFactory.addComment(comment, message_id, getMessages);
+    $scope.newComment = {};
   }
 
 }])

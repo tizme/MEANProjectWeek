@@ -1,13 +1,13 @@
 app.controller('Controller2', ['$scope', '$location', '$routeParams', 'BoardFactory',
   function($scope, $location, $routeParams, BoardFactory){
 
-    // function currentUser(){
-    //   BoardFactory.currentUser(function(data){
-    //     $scope.user = data;
-    //   });
-    // }
-    //
-    // currentUser();
+    function currentUser(){
+      BoardFactory.currentUser(function(data){
+        $scope.user = data;
+      });
+    }
+
+    currentUser();
 
     getUser = function(user_id){
       console.log('attempting to get user data');
@@ -16,7 +16,7 @@ app.controller('Controller2', ['$scope', '$location', '$routeParams', 'BoardFact
       $scope.user = data;
     }
     getUser($routeParams.id);
-    // 
+    //
   	// getUserTopics = function(user_id, callback){
     //   console.log('attempting to get get topics');
     //   console.log(user_id);

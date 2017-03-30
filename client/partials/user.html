@@ -10,7 +10,7 @@
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Topic</th>
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Start Date</th>
       </thead>
-      <tr ng-repeat="topic in user._topics | orderBy: '-createdAt'">
+      <tr ng-repeat="topic in user._topics | limitTo: 20 |orderBy: '-createdAt'">
         <td><a href="#!/topic/{{topic._id}}">{{topic.topic}}</a></td>
         <td>{{topic.createdAt}}</td>
       </tr>
@@ -37,8 +37,9 @@
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Post Date</th>
       </thead>
       <tr ng-repeat="comment in user._comments | orderBy: '-createdAt'">
-        <td><a href="#!/topic/{{comment._message._topic._id}}">{{comment.comment}}</a></td>
-        <td>{{comment.createdAt}}</td>
+        <td><a href="#!/topic/{{comment._message._topic}}">{{comment.comment}}</a></td>
+        <td>{{comment.createdAt}}{{comment._message}}</td>
+
       </tr>
     </table>
   </div>

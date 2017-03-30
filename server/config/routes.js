@@ -4,7 +4,7 @@ module.exports = function(app){
 	app.post('/register', serverController.register);
 	app.post('/login', serverController.login);
 	app.get('/logout', serverController.logout);
-	// app.get('/current', serverController.current);
+	app.get('/current', serverController.current);
 	app.get('/messages', serverController.getMessages);
 	app.get('/user/:user_id', serverController.getUser);
 	app.get('/user_messages/:id', serverController.getUserMessages);

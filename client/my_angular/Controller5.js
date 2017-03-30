@@ -3,14 +3,14 @@ app.controller('Controller5', ['$scope', '$location', '$routeParams', 'BoardFact
     console.log('route', $routeParams);
   var user_id = $routeParams.user_id;
   console.log('user', user_id);
-    // function curretnUser(){
-    //   BoardFactory.currentUser(function(data){
-    //     $scope.user = data;
-    //   });
-    // }
-    //
-    // currentUser();
-    //
+    function curretnUser(){
+      BoardFactory.currentUser(function(data){
+        $scope.user = data;
+      });
+    }
+
+    currentUser();
+
 
     getUser = function(user_id){
       console.log('attempting to get user data');
