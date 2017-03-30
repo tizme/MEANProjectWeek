@@ -55,6 +55,8 @@ module.exports = {
 	// 	}
 	// },
 	getUser: function(req, res){
+		console.log('you are now in the server!!!');
+		console.log('the request body', req.params.user_id);
 		User.findOne({_id: req.params.user_id}).populate('_topics').populate('_messages').populate('_comments').exec(function(err, data){
 			if(err){
 				res.status(400).send("Problem getting user information.")
@@ -74,15 +76,51 @@ module.exports = {
 			}
 		})
 	},
-	getMessages: function(req, res){
-		Message.find({}).populate('_user').populate('_topic').populate('_comments').exec(function(err, data){
+	getTopic: function(req, res){
+		console.log(req.params.topic_id);
+		Topic.findOne({_id: req.params.topic_id}).populate('_messages').populate('_user').exec(function(err, data){
 			if(err){
-				res.status(400).send("Problem getting messages.")
+				res.status(400).send("Problem getting one topic.")
 			}
 			else{
 				res.json(data);
 			}
 		})
+	},
+	getTopicMessagesComments: function(req, res){
+		console.log('topic id for finding messages and comments', req.params.topic_id);
+		Message.find({_topic: req.params.topic_id}).populate('_user').populate({path: '_comments', populate: {path: '_user'}}).exec(function(err, data){
+			if(err){
+				res.status(400).send("Problem getting one topic messages and comments.")
+			}
+			else{
+				res.json(data);
+			}
+		})
+	},
+	getMessages: function(req, res){
+		console.log('messages');
+		Message.find({}).populate('_user').populate({path: '_comments', populate: {path: '_user'}}).populate('_topic').exec(function(err, messages){
+			if(err){
+				console.log(err);
+			} else {
+				console.log(messages);
+				for(message in messages){
+					// console.log('MESSAGE', message);
+					// console.log(messages[message]['_comments'])
+
+				}
+				console.log(messages);
+			res.json(messages)
+			}
+		})
+		// 	if(err){
+		// 		res.status(400).send("Problem getting messages.")
+		// 	}
+		// 	else{
+		// 		res.json(data);
+
+
 	},
 	getUserMessages: function(req, res){
 		User.findOne({_id: req.params.user_id}).populate('_messages').exec(function(err, data){
@@ -113,8 +151,8 @@ module.exports = {
 						res.status(400).send("Problem finding user.");
 					}
 					else{
-						user._topics.push(req.params.topic_id);
-
+						user._topics.push(topic._id);
+							console.log('pushing into user', topic._id);
 						user.save(function(err,data){
 							if(err){
 								res.status(400).send("Problem saving user topic.");
@@ -139,9 +177,13 @@ module.exports = {
 		})
 	},
 	createMessage: function(req, res){
+		console.log('the body', req.body);
 		var message = new Message(req.body);
+		console.log(req.session.user);
 		message._user = req.session.user._id;
-		message._topic = req.params.topic_id;
+		console.log('user is ', message._user);
+		message._topic = req.body._topic;
+		console.log(message);
 		message.save(function(err, data){
 			if(err){
 				res.status(400).send("Problem saving message.");
@@ -152,19 +194,20 @@ module.exports = {
 						res.status(400).send("Problem finding user.");
 					}
 					else{
-						user._topics.push(req.params.topic_id);
-						user._messages.push(message.message_id);
+						user._topics.push(req.body._topic);
+						console.log('message id', message._id);
+						user._messages.push(message._id);
 						user.save(function(err,data){
 							if(err){
 								res.status(400).send("Problem saving user message.");
 							}
 							else{
-								Topic.findOne({_id: req.params.topic_id}, function(err,topic){
+								Topic.findOne({_id: req.body._topic}, function(err,topic){
 									if(err){
 										res.status(400).send("Problem finding topic.");
 									}
 									else{
-										topic._messages.push(message.message_id);
+										topic._messages.push(message._id);
 
 										topic._user = req.session.user._id;
 										topic.save(function(err,data){
@@ -185,22 +228,27 @@ module.exports = {
 		})
 	},
 	createComment: function(req, res){
+		console.log('the body', req.body);
 		var comment = new Comment(req.body);
-		comment._message = req.params.message_id;
+		comment._message = req.body._message;
 		comment._user = req.session.user._id;
-		comment.save(function(err, data){
+		console.log(comment);
+		comment.save(function(err, comment){
 			if(err){
 				res.status(400).send("Problem saving comment.");
 			}
 			else{
-				Message.findOne({_id: req.params.message_id}, function(err,message){
+				Message.findOne({_id: req.body._message}, function(err,message){
 					if(err){
 						res.status(400).send("Problem finding message.");
 					}
 					else{
+						///Once you pass to another function req.body ceases to exist.....
 						message._user = req.session.user._id;
-						message._topic = req.params.topic_id;
-						message._comments.push(req.params.message_id);
+						message._topic = message._topic;
+						console.log('this is the comment id', comment._id);
+						// console.log('this is the req body id', req.body._id);
+						message._comments.push(comment._id);
 						message.save(function(err,data){
 							if(err){
 								res.status(400).send("Problem saving user.");
@@ -211,7 +259,7 @@ module.exports = {
 										res.status(400).send("Problem finding user.");
 									}
 									else{
-										user._comments.push(comment.comment_id);
+										user._comments.push(req.body._id);
 										user.save(function(err,data){
 											if(err){
 												res.status(400).send("Problem saving topic.");
