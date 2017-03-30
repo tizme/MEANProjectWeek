@@ -47,13 +47,13 @@ module.exports = {
 		req.session.destroy();
 		res.redirect('/');
 	},
-	// current: function(req, res){
-	// 	if(req.session.user){
-	// 		res.json(req.session.user);
-	// 	}else{
-	// 		res.status(401).send("No user in session.");
-	// 	}
-	// },
+	current: function(req, res){
+		if(req.session.user){
+			res.json(req.session.user);
+		}else{
+			res.status(401).send("No user in session.");
+		}
+	},
 	getUser: function(req, res){
 		console.log('you are now in the server!!!');
 		console.log('the request body', req.params.user_id);
@@ -259,7 +259,7 @@ module.exports = {
 										res.status(400).send("Problem finding user.");
 									}
 									else{
-										user._comments.push(req.body._id);
+										user._comments.push(comment._id);
 										user.save(function(err,data){
 											if(err){
 												res.status(400).send("Problem saving topic.");
@@ -385,7 +385,7 @@ module.exports = {
 		})
 	},
 	getUserComments: function(req, res){
-		User.findOne({_id: req.session.user._id}).populate('_comments').exec(function(err, data){
+		User.findOne({_id: req.session.user._id}).populate({path: '_comments', populate: {path: '_message'}}).exec(function(err, data){
 			if(err){
 				res.status(400).send("Problem getting user comments.")
 			}

@@ -3,13 +3,13 @@ app.controller('TopicPageController', ['$scope', '$location', '$routeParams', 'B
     console.log($routeParams);
     var topic_id = $routeParams.topic_id;
     console.log(topic_id);
-    // function currentUser(){
-    //   BoardFactory.currentUser(function(data){
-    //     $scope.current = data;
-    //   });
-    // }
-    //
-    // currentUser();
+    function currentUser(){
+      BoardFactory.currentUser(function(data){
+        $scope.current = data;
+      });
+    }
+
+    currentUser();
     //
   	// $scope.getTopic = function(topic_id, callback){
     //   console.log('looking for the topic');
