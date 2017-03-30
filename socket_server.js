@@ -3,9 +3,9 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var path = require('path');
 var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
+var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 // // Session configuration
 var sessionConfig = {
  secret:'CookieMonster', // Secret name for decoding secret and such
@@ -35,52 +35,115 @@ require('./server/config/routes.js')(app);
 // })
 
 //Break in case of sockets!!!!!!!!!!!!!!!!!
-var server = app.listen(8000, function() {
- console.log("listening on port 8000");
+// var server = app.listen(8000, function() {
+//  console.log("listening on port 8000");
+// });
+//
+server.listen(8080);
+
+app.get('/liveChat', function (req, res) {
+  res.sendfile(__dirname + '/liveChat.html');
 });
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-//Connections
-    socket.on('get-users', function() {
-        socket.emit('all-users', users);
-    });
+// usernames which are currently connected to the chat
+var usernames = {};
 
-  //new user
-  socket.on('join', function(data){
-      console.log(data);
-      console.log(users);
-      //User name
-      socket.nickname = data.nickname;
-      users[socket.nickname] = socket; 
-      var userObj = {
-        nickname: data.nickname,
-        socketid: socket.id
-    };
+// rooms which are currently available in chat
+var rooms = ['General','News','Science','Sports','Politics','Movies','TV','Music','Video Games'];
 
-    users.push(userObj);
-    io.emit('all-users', users);
-  });
+io.sockets.on('connection', function (socket) {
 
-  socket.on('send-message', function(data) {
-      //socket.broadcast.emit('message-received', data);
-      io.emit('message-received', data);
-  });
+	// when the client emits 'adduser', this listens and executes
+	socket.on('adduser', function(username){
+		// store the username in the socket session for this client
+		socket.username = username;
+		// store the room name in the socket session for this client
+		socket.room = 'General';
+		// add the client's username to the global list
+		usernames[username] = username;
+		// send client to room 1
+		socket.join('General');
+		// echo to client they've connected
+		socket.emit('updatechat', 'SERVER', 'you have connected to General');
+		// echo to room 1 that a person has connected to their room
+		socket.broadcast.to('General').emit('updatechat', 'SERVER', username + ' has connected to this room');
+		socket.emit('updaterooms', rooms, 'General');
+	});
 
-  socket.on('send-like', function(data){
-      console.log(data);
-      socket.broadcast.to(data.like).emit('user-liked',data);
-  });
+	// when the client emits 'sendchat', this listens and executes
+	socket.on('sendchat', function (data) {
+		// we tell the client to execute 'updatechat' with 2 parameters
+		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+	});
 
- socket.on('disconnect', function(){
-    // console.log('user disconnected', function() {
-        users = users.filter(function(item) {
-            return item.nickname !== socket.nickname;
-        });
-        io.emit('all-users', users);
-  });
+	socket.on('switchRoom', function(newroom){
+		socket.leave(socket.room);
+		socket.join(newroom);
+		socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
+		// sent message to OLD room
+		socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.username+' has left this room');
+		// update socket session room title
+		socket.room = newroom;
+		socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
+		socket.emit('updaterooms', rooms, newroom);
+	});
 
+
+	// when the user disconnects.. perform this
+	socket.on('disconnect', function(){
+		// remove the username from global usernames list
+		delete usernames[socket.username];
+		// update list of users in chat, client-side
+		io.sockets.emit('updateusers', usernames);
+		// echo globally that this client has left
+		socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
+		socket.leave(socket.room);
+	});
 });
+
+
+// io.on('connection', function(socket){
+//   console.log('a user connected');
+// //Connections
+//     socket.on('get-users', function() {
+//         socket.emit('all-users', users);
+//     });
+//
+//   //new user
+//   socket.on('join', function(data){
+//       console.log(data);
+//       console.log(users);
+//       //User name
+//       socket.nickname = data.nickname;
+//       users[socket.nickname] = socket; 
+//       var userObj = {
+//         nickname: data.nickname,
+//         socketid: socket.id
+//     };
+//
+//     users.push(userObj);
+//     io.emit('all-users', users);
+//   });
+//
+//   socket.on('send-message', function(data) {
+//       //socket.broadcast.emit('message-received', data);
+//       io.emit('message-received', data);
+//   });
+//
+//   socket.on('send-like', function(data){
+//       console.log(data);
+//       socket.broadcast.to(data.like).emit('user-liked',data);
+//   });
+//
+//  socket.on('disconnect', function(){
+//     // console.log('user disconnected', function() {
+//         users = users.filter(function(item) {
+//             return item.nickname !== socket.nickname;
+//         });
+//         io.emit('all-users', users);
+//   });
+//
+// });
 
 
 

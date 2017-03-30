@@ -16,15 +16,15 @@ app.config(function($routeProvider){
     })
     .when('/topic/:topic_id',{
       templateUrl: 'partials/topic.html',
-      controller: 'Controller3'
+      controller: 'TopicPageController'
     })
     .when('/user/:user_id',{
       templateUrl: 'partials/user.html',
-      controller: 'Controller5'
+      controller: 'UserPageController'
     })
-    .when('/chat',{
-      templateUrl: 'partials/partial_6.html',
-      controller: 'Controller6'
+    .when('/liveChat',{
+      templateUrl: 'partials/liveChat.html',
+      controller: 'liveChatController'
     })
     .otherwise({
       redirectTo: '/'
