@@ -1,5 +1,5 @@
 *{
-  outline: 1px dotted red;
+  /*outline: 1px dotted red;*/
   margin: auto 0px;
   font-family: sans-serif;
   /*color: #8B0002;*/
@@ -28,12 +28,24 @@ body{
 
 #navLinks{
   position: relative;
-  width: 200px;
-  left: 950px;
+  width: 600px;
+  left: 1250px;
   bottom: 50px;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
 }
+
+#chatButton{
+  width: 120px;
+  height: 30px;
+  background-color: lime;
+  font-weight: bold;
+  color:#3272A9 ;
+  border-radius: 3px;
+  vertical-align: top;
+  border-radius: 9px;
+}
+
 
 #homeLink{
   display: inline-block;
@@ -61,7 +73,7 @@ body{
 #loggin{
   position: relative;
   bottom: 23px;
-  width:100%;
+  width: 99.5%+1px;
   height: 30px;
   display: block;
   vertical-align: top;
@@ -69,7 +81,7 @@ body{
   font-weight: bold;
   /*background-color: crimson;*/
   background-color: #3272A9;
-  margin: 0px 0px 0px 0px;
+  margin: -1px 0px 0px 0px;
   padding: 6px 0px 0px 8px;
 }
 
@@ -98,7 +110,7 @@ body{
 }
 
 #registerLink{
-  margin-left: 370px;
+  /*margin-left: 170px;*/
   color: white;
   text-decoration: none;
 }
@@ -165,15 +177,15 @@ body{
 
 #dashLogo{
   position: relative;
-  bottom: 400px;
+  bottom: 600px;
   width: 550px;
-  margin: 0px 0px 0px 0px;
+  margin: 0px 0px -500px 0px;
   padding: 0px 0px 0px 0px;
 }
 
 #dashWrapper{
-  width:1350px;
-  height:100%;
+  width:1080px;
+  /*height:100%;*/
   margin: 150px 0px 0px 650px;
   padding: 0px 0px 5px 0px;
   background-color: transparent;
@@ -188,7 +200,7 @@ h2{
 
 #topicsDash{
   border: none;
-  width:45%;
+  width:65%;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   font-size: 20px;
@@ -217,7 +229,7 @@ h2{
 #messageDash{
   font-size: 20px;
   border: none;
-  width:45%;
+  width:65%;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   font-weight: bold;
@@ -333,19 +345,19 @@ h2{
 }
 
 #userTopicsTable{
-  width: 1200px;
+  width: 1080px;
   color: white;
   height: 200px;
 }
 
 #userMessagesTable{
-  width: 1200px;
+  width: 1080px;
   color: white;
   height: 200px;
 }
 
 #userCommentsTable{
-  width: 1200px;
+  width: 1080px;
   color: white;
   height: 200px;
 }
