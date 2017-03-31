@@ -22,10 +22,6 @@ app.config(function($routeProvider){
       templateUrl: 'partials/user.html',
       controller: 'Controller5'
     })
-    .when('/chat',{
-      templateUrl: 'partials/partial_6.html',
-      controller: 'Controller6'
-    })
     .otherwise({
       redirectTo: '/'
     })

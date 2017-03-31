@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>MEAN Project Week</title>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script src="angular/angular.js" charset="utf-8"></script>
     <script src="angular-route/angular-route.js" charset="utf-8"></script>
     <script src="angular-messages/angular-messages.js"></script>
@@ -14,14 +15,26 @@
     <script src="my_angular/Controller2.js" charset="utf-8"></script>
     <script src="my_angular/Controller3.js" charset="utf-8"></script>
     <script src="my_angular/Controller5.js" charset="utf-8"></script>
+
+    <script>
+    $(document).ready(function(){
+      $("#login").click(function(){
+        console.log('running jquery');
+      if ($('#UserName')[0].outerText==""){
+        $("#loggin").hide()
+      }
+    })
+  });
+    </script>
+
   </head>
   <body style="font-family: sans-serif;">
     <p style="font-size:30px;font-weight:bold;"><span style="font-size:40px;">MEAN</span> Project Week</p>
-    <div ng-controller="LoginController">
-      <form name="loginForm">
+    <div id='loggin' ng-controller="LoginController" ng-hide='loggedin'>
+      <form  name="loginForm">
         User Email:<input type="text" ng-model="user.email" required minlength="8" placeholder="Enter email Here.">
         Password:<input type="text" ng-model="user.password" required minlength="8" placeholder="Enter email Here.">
-        <button ng-disabled="loginForm.$invalid" ng-click="login(user)">Login</button>
+        <button id='login' ng-disabled="loginForm.$invalid" ng-click="login(user)">Login</button>
         <a href="#!/register">Register</a>
       </form>
       <div ng-messages="loginForm.user.email.$error">
@@ -35,7 +48,7 @@
 
     </div>
 <div ng-controller="BoardController">
-  Hello, <span id='UserName'>{{user.name}}</span>
+  <span id='UserName' style= "display:none" >{{user.name}}</span>
 
     <div ng-view>
     <!-- Partial html views here. -->
@@ -43,7 +56,6 @@
 
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script>
     	var socket = io.connect('http://localhost:8080');
 

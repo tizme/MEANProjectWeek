@@ -1,6 +1,6 @@
 <div>
   <p>User Profile for {{user.name}}</p>
-  <p>Joined: {{user.createdAt}}</p>
+  <p>Joined: {{user.createdAt | date:'medium'}}</p>
   <a href="#!/topics">Return to Topics Main</a>
   <a href="#!/">General Dashboard</a>
   <div id="topicDisplay" style="overflow-y: scroll">
@@ -12,7 +12,7 @@
       </thead>
       <tr ng-repeat="topic in user._topics | limitTo: 20 |orderBy: '-createdAt'">
         <td><a href="#!/topic/{{topic._id}}">{{topic.topic}}</a></td>
-        <td>{{topic.createdAt}}</td>
+        <td>{{topic.createdAt | date:'medium'}}</td>
       </tr>
     </table>
   </div>
@@ -25,7 +25,7 @@
       </thead>
       <tr ng-repeat="message in user._messages | orderBy: '-createdAt'">
         <td><a href="#!/topic/{{message._topic}}">{{message.message}}</a></td>
-        <td>{{message.createdAt}}</td>
+        <td>{{message.createdAt | date:'medium'}}</td>
       </tr>
     </table>
   </div>
@@ -37,8 +37,8 @@
         <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Post Date</th>
       </thead>
       <tr ng-repeat="comment in user._comments | orderBy: '-createdAt'">
-        <td><a href="#!/topic/{{comment._message._topic}}">{{comment.comment}}</a></td>
-        <td>{{comment.createdAt}}{{comment._message}}</td>
+        <td>{{comment.comment}}</td>
+        <td>{{comment.createdAt | date:'medium'}}</td>
 
       </tr>
     </table>

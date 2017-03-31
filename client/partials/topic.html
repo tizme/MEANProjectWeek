@@ -1,9 +1,7 @@
 <div>
-  name: {{user.name}}
   <a href="#!/topics">Return to Topics Main</a>
   <a href="#!/">General Dashboard</a>
   <h1>{{topic.topic}}</h1>
-  <h2>{{topic._id}}</h2>
   <div>
     <form>
       Respond to this Topic |<textarea name="name" rows="6" cols="80" ng-model="newMessage.message" placeholder="Enter response here..."></textarea>
@@ -14,7 +12,7 @@
     <div ng-repeat="message in messages | orderBy: '-createdAt'">
       <p style="color:blue">{{message._user.name}}:</p>
       <p style="color:blue">{{message.message}}</p>
-      <p style="color:blue">{{message.createdAt}}</p>
+      <p style="color:blue">{{message.createdAt | date:'medium'}}</p>
       {{message._id}}
       <div>
         <form>
@@ -32,7 +30,7 @@
 
 
             <p style="color:red">{{comment._user.name}} commented: {{comment.comment}}</p>
-            <p style="color:red">Posted at: {{comment.createdAt}}</p>
+            <p style="color:red">Posted at: {{comment.createdAt | date:'medium'}}</p>
             Message ID of comment: {{comment._message}}
           </div>
         </div>
