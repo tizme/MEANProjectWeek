@@ -11,7 +11,6 @@
       <p style="color:blue">{{message._user.name}}:</p>
       <p style="color:blue">{{message.message}}</p>
       <p style="color:blue">{{message.createdAt | date:'medium'}}</p>
-      {{message._id}}
       <div>
         <form>
           <p>Want to comment? |</p>
@@ -27,7 +26,6 @@
           <div ng-repeat="comment in message._comments">
             <p style="color:red"><a href="#!/user/{{comment._user._id}}">{{comment._user.name}}</a> commented: {{comment.comment}}</p>
             <p style="color:red">Posted at: {{comment.createdAt | date:'medium'}}</p>
-            Message ID of comment: {{comment._message}}
           </div>
         </div>
       </div>
