@@ -1,34 +1,37 @@
-<div>
+<div id="topicsMainWrapper">
   <h1>Available Topics</h2>
-  <a href="#!/topics">Return to Topics Main</a>
-  <input type="text" ng-model="search.topic"  placeholder="Search Topics" style="width: 265px; display: block;vertical-align:top;">
-  <div id="topicsDisplay | filter: createdAt" style="display: inline-block; vertical-align:top; width:800px; border: 1px solid black;">
-    <table styel="overflow-y=scroll;">
-      <thead style='background-color: black;'>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Category</th>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Topic</th>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Topic Author</th>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Start Date</th>
+  <input id="topicsSearch" type="text" ng-model="search.topic"  placeholder="Search Topics">
+  <div id="topicsMainDisplay | filter: createdAt">
+    <table id="topicsTable" styel="overflow-y=scroll;">
+      <thead>
+        <th>Category</th>
+        <th>Topic</th>
+        <th>Topic Author</th>
+        <th>Start Date</th>
       </thead>
       <tr ng-repeat="topic in topics | filter:search | orderBy: '-createdAt'">
         <td>{{topic.category}}</td>
         <td><a href="#!/topic/{{topic._id}}">{{topic.topic}}</a></td>
-        <td><a href="#!/user/{{topic._user._id}}">{{topic._user.name}}</a></td>
+        <td class="topicAuthor"><a href="#!/user/{{topic._user._id}}">{{topic._user.name}}</a></td>
         <td>{{topic.createdAt | date:'medium'}}</td>
       </tr>
     </table>
   </div>
-  <form>
-    Create New Topic |<input type="text" name="" value="" ng-model="newTopic.topic" placeholder="Enter topic here...">
-    <select ng-model="newTopic.category">
-      <option value="News">News</option>
-      <option value="Science">Science</option>
-      <option value="Politics">Politics</option>
-      <option value="Movies">Movies</option>
-      <option value="TV">TV</option>
-      <option value="Music">Music</option>
-      <option value="Video Games">Video Games</option>
-    </select>
-    <button type="submit" name="Submit" ng-click="submitTopic(newTopic)">Submit Topic</button>
-  </form>
+  <div id="topicCreateWrapper">
+    <form id="topicCreation">
+      <p id="topicPrompt">Create New Topic |</p>
+      <input id="topicInput" type="text" name="" value="" ng-model="newTopic.topic" placeholder="Enter topic here...">
+      <select ng-model="newTopic.category">
+        <option value="News">News</option>
+        <option value="Science">Science</option>
+        <option value="Politics">Politics</option>
+        <option value="Movies">Movies</option>
+        <option value="TV">TV</option>
+        <option value="Music">Music</option>
+        <option value="Video Games">Video Games</option>
+        <option value="Sports">Sports</option>
+      </select>
+      <button type="submit" name="Submit" ng-click="submitTopic(newTopic)">Submit Topic</button>
+    </form>
+  </div>
 </div>

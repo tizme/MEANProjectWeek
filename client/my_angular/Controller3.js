@@ -1,5 +1,6 @@
 app.controller('Controller3', ['$scope', '$location', '$routeParams', 'BoardFactory',
   function($scope, $location, $routeParams, BoardFactory){
+    $scope.pageClass = 'page-topic';
     console.log($routeParams);
     var topic_id = $routeParams.topic_id;
     console.log(topic_id);

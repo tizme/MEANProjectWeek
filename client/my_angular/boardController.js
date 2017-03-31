@@ -1,5 +1,7 @@
 app.controller('BoardController', ['$scope', '$location', 'BoardFactory', function($scope, $location, BoardFactory){
 
+  $scope.pageClass = 'page-board';
+
   function currentUser(){
     BoardFactory.currentUser(function(data){
       $scope.user = data;
