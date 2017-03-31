@@ -26,7 +26,7 @@ app.factory('BoardFactory', ['$location', '$http', function($location, $http){
     }).then(function(res){
       console.log("login success boardfactory line 25!");
       console.log(res);
-      $location.url('/topics');
+      $location.url('/dashboard');
     }, function(res){
       console.log('boardfactory line 31', res);
     })

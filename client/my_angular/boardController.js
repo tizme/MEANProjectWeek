@@ -18,6 +18,7 @@ app.controller('BoardController', ['$scope', '$location', 'BoardFactory', functi
     BoardFactory.submitTopic(topic, getTopics);
     $scope.newTopic = {};
   }
+  getTopics();
 
   function getMessages(){
     BoardFactory.getMessages(function(data){
