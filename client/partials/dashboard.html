@@ -16,10 +16,10 @@
     <h2>Recent Messages</h2>
     <div id="messageDisplay | filter: createdAt | limitTo: 5">
       <p ng-repeat="message in messages">{{message._user.name}} wrote: {{message.message}} on {{message.createdAt | date:'medium'}}</p>
-      <a href="#!/topics">navigate to topics gallery</a>
+
     </div>
     <div>
-      <span>  </span>
+      <span><a href="#!/topics">navigate to topics gallery</a></span>
     </div>
   </div>
 </div>
