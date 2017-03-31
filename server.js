@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 require('./server/config/mongoose.js');
 require('./server/config/routes.js')(app);
 
-server.listen(8080);
+server.listen(54.214.118.132);
 
 // routing
 app.get('/', function (req, res) {
