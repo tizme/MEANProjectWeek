@@ -1,5 +1,6 @@
 app.controller('Controller5', ['$scope', '$location', '$routeParams', 'BoardFactory',
   function($scope, $location, $routeParams, BoardFactory){
+    $scope.pageClass = 'page-user';
     console.log('route', $routeParams);
   var user_id = $routeParams.user_id;
   console.log('user', user_id);

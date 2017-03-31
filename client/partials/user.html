@@ -1,27 +1,27 @@
-<div>
-  <p>User Profile for {{user.name}}</p>
-  <p>Joined: {{user.createdAt | date:'medium'}}</p>
-  <a href="#!/topics">Return to Topics Main</a>
-  <a href="#!/">General Dashboard</a>
-  <div id="topicDisplay" style="overflow-y: scroll">
+<div id="userPageWrapper">
+  <div id="userPageInfo">
+    <p>User Profile for {{user.name}}</p>
+    <p>Joined: {{user.createdAt | date:'medium'}}</p>
+  </div>
+  <div id="userTopicsDisplay" style="overflow-y: scroll; height: 150px;">
     <h2>Posted Topics</h2>
-    <table>
+    <table id="userTopicsTable">
       <thead>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Topic</th>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Start Date</th>
+        <th>Topic</th>
+        <th>Start Date</th>
       </thead>
-      <tr ng-repeat="topic in user._topics | limitTo: 20 |orderBy: '-createdAt'">
+      <tr ng-repeat="topic in user._topics | limitTo: 10 |orderBy: '-createdAt'">
         <td><a href="#!/topic/{{topic._id}}">{{topic.topic}}</a></td>
         <td>{{topic.createdAt | date:'medium'}}</td>
       </tr>
     </table>
   </div>
-  <div id="topicResponseDisplay" style="overflow-y: scroll">
+  <div id="userMessagesDisplay" style="overflow-y: scroll; height: 150px;">
     <h2>Posted Messages</h2>
-    <table>
+    <table id="userMessagesTable">
       <thead>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Response</th>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Post Date</th>
+        <th>Response</th>
+        <th>Post Date</th>
       </thead>
       <tr ng-repeat="message in user._messages | orderBy: '-createdAt'">
         <td><a href="#!/topic/{{message._topic}}">{{message.message}}</a></td>
@@ -29,17 +29,16 @@
       </tr>
     </table>
   </div>
-  <div id="responseCommentDisplay" style="overflow-y: scroll">
+  <div id="userCommentsDisplay" style="overflow-y: scroll; height: 150px;">
     <h2>Posted Comments</h2>
-    <table>
+    <table id="userCommentsTable">
       <thead>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Comment</th>
-        <th style="text-align: left;width: 220px;background-color: black;color:white;border:none; margin:0px;">Post Date</th>
+        <th>Comment</th>
+        <th>Post Date</th>
       </thead>
       <tr ng-repeat="comment in user._comments | orderBy: '-createdAt'">
         <td>{{comment.comment}}</td>
         <td>{{comment.createdAt | date:'medium'}}</td>
-
       </tr>
     </table>
   </div>
