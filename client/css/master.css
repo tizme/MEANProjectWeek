@@ -200,6 +200,7 @@ h2{
 
 #topicsDash{
   border: none;
+  height: 196px;
   width:65%;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
@@ -237,6 +238,7 @@ h2{
 
 #messageDisplay{
   border: none;
+  height: 230px;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   font-weight: bold;
