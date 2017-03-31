@@ -1,8 +1,8 @@
 <div id="topicPageWrapper">
   <div>
-    <h1>{{topic.topic}}</h1>
+    <h1 style= "color:white;">{{topic.topic}}</h1>
     <form>
-      Respond to this Topic |<textarea name="name" rows="6" cols="80" ng-model="newMessage.message" placeholder="Enter response here..."></textarea>
+      <span style="color:white">Respond to this Topic</span> |<textarea name="name" rows="6" cols="80" ng-model="newMessage.message" placeholder="Enter response here..."></textarea>
       <button type="submit" name="Submit" ng-click="addMessage(newMessage, topic._id)">Submit Message</button>
     </form>
   </div>
