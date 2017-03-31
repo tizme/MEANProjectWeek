@@ -38,6 +38,8 @@
           <a id="homeLink" href="#!/">Home</a>
           <p class="linkSeperator">|</p>
           <a id="topicsLink" href="#!/topics">Topics</a>
+          <p class="linkSeperator">|</p>
+          <button id="chatButton" type="button" name="button" ng-click="seeChat = !seeChat">Let's Chat!!</button>
         </div>
         <div id='loggin' ng-controller="LoginController" ng-hide='loggedin'>
           <form  name="loginForm">
@@ -117,7 +119,7 @@
         		});
         	});
         </script>
-        <div id="liveChat">
+        <div id="liveChat" ng-show="seeChat">
           <div id="liveChatDisplay">
           	<b id="chatRoomNames">CHAT ROOMS</b>
           	<div id="rooms"></div>
