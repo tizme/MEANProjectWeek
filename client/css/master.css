@@ -6,7 +6,7 @@
 }
 
 body{
-
+height: 100%
 }
 
 #contentWrapper{
@@ -15,6 +15,7 @@ body{
   /*background-color: #F2E0B3;*/
   background-size: cover;
   background-repeat: no-repeat;
+  ;
 }
 /*Index HTML____*/
 
@@ -177,18 +178,20 @@ body{
 
 #dashLogo{
   position: relative;
-  bottom: 600px;
+  bottom: 00px;
   width: 550px;
-  margin: 0px 0px -500px 0px;
+  margin: 0px 0px 00px 0px;
   padding: 0px 0px 0px 0px;
+  display: inline-block;
 }
 
 #dashWrapper{
   width:1080px;
   /*height:100%;*/
-  margin: 150px 0px 0px 650px;
+  margin: 0px 0px 0px 00px;
   padding: 0px 0px 5px 0px;
   background-color: transparent;
+  display: inline-block;
 }
 
 h2{
